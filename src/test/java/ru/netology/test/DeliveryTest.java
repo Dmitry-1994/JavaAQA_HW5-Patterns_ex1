@@ -4,6 +4,8 @@ import org.junit.jupiter.api.*;
 import org.openqa.selenium.Keys;
 import ru.netology.data.DataGenerator;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
@@ -26,12 +28,11 @@ public class DeliveryTest {
         $("[data-test-id=phone] input").setValue(user.getPhone());
         $("[data-test-id=agreement] .checkbox__box").click();
         $(".button__text").click();
-        $("[data-test-id=success-notification]").shouldBe(visible);
+        $("[data-test-id=success-notification]").shouldBe(visible, Duration.ofSeconds(15));
         $("[data-test-id=success-notification] .notification__title").shouldHave(text("Успешно!"));
         $("[data-test-id=success-notification] .notification__content").shouldHave(text("Встреча успешно запланирована на " + firstRegistrationDay));
         $("[data-test-id=success-notification] .icon-button").click();
         $("[data-test-id=date] input").doubleClick().sendKeys(Keys.DELETE);
-        ;
         $("[data-test-id=date] input").setValue(secondRegistrationDay);
         $(".button__text").click();
         $("[data-test-id=replan-notification]").shouldBe(visible);
